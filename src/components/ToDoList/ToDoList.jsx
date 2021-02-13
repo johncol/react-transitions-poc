@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CSSTransitionGroup } from "react-transition-group";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import "./ToDoList.css";
 
@@ -34,18 +34,16 @@ export const ToDoList = ({}) => {
         }}
       />
       <ul>
-        <CSSTransitionGroup
-          transitionName="items"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={300}
-        >
+        <TransitionGroup>
           {items.map((item) => (
-            <li key={item.id}>
-              {item.description}{" "}
-              <button onClick={() => deleteItem(item)}>&times;</button>
-            </li>
+            <CSSTransition key={item.id} timeout={500} classNames="items">
+              <li key={item.id}>
+                {item.description}{" "}
+                <button onClick={() => deleteItem(item)}>&times;</button>
+              </li>
+            </CSSTransition>
           ))}
-        </CSSTransitionGroup>
+        </TransitionGroup>
       </ul>
     </div>
   );
